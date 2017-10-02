@@ -18,7 +18,9 @@
 <p>Nalazite se u bilježnici: ${biljeska.biljeznica.naziv}</p>
 <p>Sadržaj bilježnice: ${biljeska.biljeznica.opisSadrzaja}</p>
  
-<a href="<spring:url value="/novaBiljeska"/>">Povratak</a>
+<form action="./napraviNovuBiljesku" method="get">
+<input type="submit" value="Napravi novu bilješku"/>
+</form>
 </div>
 </body>
 </html>
