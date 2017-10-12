@@ -23,8 +23,9 @@ public class BiljeskaController {
   }
   
   @PostMapping(value="/potvrdaSpremanja")
-  public String potvrdiSpremanje(Model model, @ModelAttribute NovaBiljeskaForm novaBiljeskaForm)
+  public String potvrdiSpremanje(Model model, @ModelAttribute("novaBiljeskaForm")NovaBiljeskaForm novaBiljeskaForm)
   {
+	  
 	  for(Korisnik korisnik : EntitetiHelper.getKorisnikList())
 	  {
 		  if(korisnik.getKorisnikId().equals(Integer.parseInt(novaBiljeskaForm.getKorisnikId())))
@@ -38,8 +39,8 @@ public class BiljeskaController {
   
   
   @PostMapping(value="/spremiBiljesku")
-  public String spremiBiljesku(@ModelAttribute NovaBiljeskaForm novaBiljeskaForm,
-		                       @ModelAttribute Biljeska biljeska, @ModelAttribute("brojac") HashMap<String, Integer> brojac)
+  public String spremiBiljesku(Model model, @ModelAttribute("novaBiljeskaForm") NovaBiljeskaForm novaBiljeskaForm,
+		                       @ModelAttribute("brojac") HashMap<String, Integer> brojac)
   {
  	 Korisnik biljeskaKorisnik = null;
  	 for(Korisnik korisnik : EntitetiHelper.getKorisnikList())
@@ -60,10 +61,15 @@ public class BiljeskaController {
  			 break;
  		 }
  	 }
+ 	 
+ 	 Biljeska biljeska = new Biljeska();
  	 biljeska.setNaslov(novaBiljeskaForm.getNaslovBiljeske());
  	 biljeska.setText(novaBiljeskaForm.getText());
  	 biljeska.setKorisnik(biljeskaKorisnik);
  	 biljeska.setBiljeznica(biljeskaBiljeznica);
+ 	 
+ 	 model.addAttribute("biljeska", biljeska);
+ 	 
  	 for(String nazivBiljeznice : brojac.keySet())
  	 {
  		 if(nazivBiljeznice.equals(biljeskaBiljeznica.getNaziv()))
@@ -75,11 +81,11 @@ public class BiljeskaController {
  	 return "biljeska";
   }
   
+  
   @GetMapping(value="/napraviNovuBiljesku")
-  public String napraviNovuBiljesku(@ModelAttribute NovaBiljeskaForm novaBiljeskaForm)
+  public String napraviNovuBiljesku(Model model)
   {
-	  novaBiljeskaForm.setNaslovBiljeske(null);
-	  novaBiljeskaForm.setText(null);
+	  model.addAttribute("novaBiljeskaForm", new NovaBiljeskaForm());
 	  return "redirect:/novaBiljeska";
   }
   
