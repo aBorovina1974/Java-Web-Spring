@@ -19,11 +19,25 @@ infrastructure -->
 resources in the ${webappRoot}/resources directory -->
 <resources location="/resources/" mapping="/resources/**"/>
 
-<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the
-/WEB-INF/views directory -->
-<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-<beans:property name="prefix" value="/WEB-INF/views/"/>
-<beans:property name="suffix" value=".jsp"/>
+<!-- Thymeleaf View Resolver - implementation of Spring's ViewResolver interface -->
+<beans:bean id="viewResolver" class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
+<beans:property name="templateEngine" ref="templateEngine" />
+<beans:property name="characterEncoding" value="UTF-8" />
+</beans:bean>
+<!-- Thymeleaf Template Engine (Spring4-specific version) -->
+<beans:bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
+<beans:property name="templateResolvers">
+<beans:set>
+<beans:ref bean="templateResolver" />
+</beans:set>
+</beans:property>
+</beans:bean>
+<!-- Thymeleaf Template Resolver -->
+<beans:bean id="templateResolver"
+class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">
+<beans:property name="prefix" value="/WEB-INF/templates/" />
+<beans:property name="suffix" value=".html" />
+<beans:property name="templateMode" value="HTML" />
 </beans:bean>
 
 <context:component-scan base-package="hr.biljeznica"/>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Bilježnica</title>
+<link rel="stylesheet" type="text/css" th:href="@{/resources/style.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/resources/bootstrap.css}">
+</head>
+<body>
+<h1 align="center">Nova bilješka</h1>
+<div align="center">
+<form th:action="@{/potvrdaSpremanja}" th:object="${novaBiljeskaForm}" method="post">
+<table>
+<tr>
+<td>Korisnik:</td>
+<td>
+<select th:field="*{korisnikId}">
+<option th:each="korisnik : ${korisnici}"
+        th:value="${korisnik.korisnikId}"
+        th:text="${korisnik.punoIme}">Korisnik</option>
+</select>
+</td>
+</tr>
+<tr>
+<td>Bilježnica:</td>
+<td>
+<select th:field="*{nazivBiljeznice}">
+<option th:each="biljeznica : ${biljeznice}"
+        th:value="${biljeznica.naziv}"
+        th:text="${biljeznica.naziv}">Bilježnica</option>
+</select>
+</td>
+</tr>
+<tr>
+<td>Naslov:</td>
+<td>
+<input type="text" th:field="*{naslovBiljeske}"/>
+</td>
+</tr>
+<tr>
+<td>Text:</td>
+<td>
+<textarea th:field="*{text}" rows="10" cols="30"></textarea>
+</td>
+</tr>
+<tr>
+<td colspan="2" align="center">
+<input type="submit" value="Spremi bilješku"/>
+</td>
+</tr>
+</table>
+
+<table>
+<tr>
+<th>Bilježnica</th>
+<th>Broj unesenih bilješki</th>
+</tr>
+<tr th:each="entry : ${brojac}">
+<td th:text="${entry.key}">Bilježnica</td>
+<td th:text="${entry.value}">0</td>
+</tr>
+</table>
+</form>
+
+<form th:action="@{/obrisiStatistiku}" method="get">
+<input  type="submit" value="Obriši statistiku"/>
+</form>
+</div>
+</body>
+</html>

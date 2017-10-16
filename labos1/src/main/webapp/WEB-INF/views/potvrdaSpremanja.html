@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Potvrda spremanja</title>
+<link rel="stylesheet" type="text/css" th:href="@{/resources/style.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/resources/bootstrap.css}">
+</head>
+<body>
+<h1 align="center">Pregled bilješke prije spremanja</h1>
+<form th:action="@{/spremiBiljesku}" method="post">
+<table style="margin: 0 auto;">
+<tr>
+<td>Korisnik:</td>
+<td th:text="${punoIme}">Puno ime korisnika</td>
+</tr>
+<tr>
+<td>Bilježnica:</td>
+<td th:text="${novaBiljeskaForm.nazivBiljeznice}">Naziv bilježnice</td>
+</tr>
+<tr>
+<td>Naslov:</td>
+<td th:text="${novaBiljeskaForm.naslovBiljeske}">Naslov bilješke</td>
+</tr>
+<tr>
+<td>Tekst:</td>
+<td th:text="${novaBiljeskaForm.text}">Neki text</td>
+</tr>
+<tr>
+<td>
+<input type="button" value="Vrati se na uređivanje bilješke"
+ onclick="window.location.href='http://localhost:8080/labos1/novaBiljeska'"/>
+</td>
+<td>
+<input type="submit" value="Spremi bilješku"/>
+</td>
+</tr>
+</table>
+</form>
+</body>
+</html>

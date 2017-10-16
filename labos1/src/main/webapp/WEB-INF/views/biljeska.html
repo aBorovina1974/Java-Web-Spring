@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Bilješka</title>
+<link rel="stylesheet" type="text/css" th:href="@{/resources/style.css}" >
+<link rel="stylesheet" type="text/css" th:href="@{/resources/bootstrap.css}" >
+</head>
+<body>
+<div align="center">
+<h1 th:text="${biljeska.naslov}">Naslov bilješke</h1>
+<p th:text="${biljeska.text}">Tekst bilješke</p>
+
+<p th:text="|Napisao: ${biljeska.korisnik.punoIme}, 
+             korisničko ime: ${biljeska.korisnik.korisnickoIme}|">
+             Napisao:Ime i prezime korisnika , korisničko ime: korisničko ime </p>
+ 
+<p th:text="|Nalazite se u bilježnici: ${biljeska.biljeznica.naziv}|">
+             Nalazite se u bilježnici: Naziv bilježnice </p>
+
+<form th:action="@{/napraviNovuBiljesku}" method="get">
+<input type="submit" value="Napravi novu bilješku"/>
+</form>
+</div>
+</body>
+</html>

@@ -19,9 +19,15 @@
   </dependency>
   
   <dependency>
-  <groupId>javax.servlet</groupId>
-  <artifactId>jstl</artifactId>
-  <version>1.2</version>
+  <groupId>org.thymeleaf</groupId>
+  <artifactId>thymeleaf</artifactId>
+  <version>3.0.3.RELEASE</version>
+  </dependency>
+  
+  <dependency>
+  <groupId>org.thymeleaf</groupId>
+  <artifactId>thymeleaf-spring4</artifactId>
+  <version>3.0.3.RELEASE</version>
   </dependency>
   
   </dependencies>
