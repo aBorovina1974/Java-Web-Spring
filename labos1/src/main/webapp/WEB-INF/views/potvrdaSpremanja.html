@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Potvrda spremanja</title>
@@ -27,12 +27,10 @@
 <td th:text="${novaBiljeskaForm.text}">Neki text</td>
 </tr>
 <tr>
-<td>
-<input type="button" value="Vrati se na uređivanje bilješke"
+<td colspan="2" align="center">
+<input type="button" class="btn btn-outline-secondary btn-sm" value="Vrati se na uređivanje bilješke"
  onclick="window.location.href='http://localhost:8080/labos1/novaBiljeska'"/>
-</td>
-<td>
-<input type="submit" value="Spremi bilješku"/>
+ <input type="submit" value="Spremi bilješku" class="btn btn-primary btn-sm"/>
 </td>
 </tr>
 </table>

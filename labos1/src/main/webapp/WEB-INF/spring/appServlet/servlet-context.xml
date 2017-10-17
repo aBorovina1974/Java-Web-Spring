@@ -35,8 +35,9 @@ resources in the ${webappRoot}/resources directory -->
 <!-- Thymeleaf Template Resolver -->
 <beans:bean id="templateResolver"
 class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">
-<beans:property name="prefix" value="/WEB-INF/templates/" />
+<beans:property name="prefix" value="/WEB-INF/views/" />
 <beans:property name="suffix" value=".html" />
+<beans:property name="characterEncoding" value="UTF-8" />
 <beans:property name="templateMode" value="HTML" />
 </beans:bean>
 

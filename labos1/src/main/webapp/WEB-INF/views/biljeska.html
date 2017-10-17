@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Bilješka</title>
@@ -17,10 +17,9 @@
  
 <p th:text="|Nalazite se u bilježnici: ${biljeska.biljeznica.naziv}|">
              Nalazite se u bilježnici: Naziv bilježnice </p>
-
-<form th:action="@{/napraviNovuBiljesku}" method="get">
-<input type="submit" value="Napravi novu bilješku"/>
-</form>
+<a th:href="@{/napraviNovuBiljesku}">
+<button class="btn btn-primary btn-sm">Napravi novu bilješku</button>
+</a>
 </div>
 </body>
 </html>
