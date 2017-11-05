@@ -2,8 +2,8 @@ package hr.biljeznica;
 
 public class NovaBiljeskaForm {
 	
-	private String korisnikId;
-	private String nazivBiljeznice;
+	private Korisnik korisnik;
+	private Biljeznica biljeznica;
 	private String naslovBiljeske;
 	private String text;
 	
@@ -12,18 +12,28 @@ public class NovaBiljeskaForm {
 		
 	}
 	
-	public String getKorisnikId() {
-		return korisnikId;
+	
+	public Korisnik getKorisnik() {
+		return korisnik;
 	}
-	public void setKorisnikId(String korisnikId) {
-		this.korisnikId = korisnikId;
+
+
+	public void setKorisnik(Korisnik korisnik) {
+		this.korisnik = korisnik;
 	}
-	public String getNazivBiljeznice() {
-		return nazivBiljeznice;
+
+
+	
+	public Biljeznica getBiljeznica() {
+		return biljeznica;
 	}
-	public void setNazivBiljeznice(String nazivBiljeznice) {
-		this.nazivBiljeznice = nazivBiljeznice;
+
+
+	public void setBiljeznica(Biljeznica biljeznica) {
+		this.biljeznica = biljeznica;
 	}
+
+
 	public String getNaslovBiljeske() {
 		return naslovBiljeske;
 	}

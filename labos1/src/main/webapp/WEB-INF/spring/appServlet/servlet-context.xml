@@ -24,6 +24,7 @@ resources in the ${webappRoot}/resources directory -->
 <beans:property name="templateEngine" ref="templateEngine" />
 <beans:property name="characterEncoding" value="UTF-8" />
 </beans:bean>
+
 <!-- Thymeleaf Template Engine (Spring4-specific version) -->
 <beans:bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
 <beans:property name="templateResolvers">
@@ -31,7 +32,14 @@ resources in the ${webappRoot}/resources directory -->
 <beans:ref bean="templateResolver" />
 </beans:set>
 </beans:property>
+<beans:property name="additionalDialects">
+<beans:set>
+<beans:bean
+class="org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect"/>
+</beans:set>
+</beans:property>
 </beans:bean>
+
 <!-- Thymeleaf Template Resolver -->
 <beans:bean id="templateResolver"
 class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">
@@ -41,6 +49,6 @@ class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">
 <beans:property name="templateMode" value="HTML" />
 </beans:bean>
 
-<context:component-scan base-package="hr.biljeznica"/>
+<context:component-scan base-package="hr.controllers"/>
 
 </beans:beans>

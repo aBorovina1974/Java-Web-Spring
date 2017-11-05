@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
 <title>Bilježnica</title>
@@ -7,6 +8,7 @@
 <link rel="stylesheet" type="text/css" th:href="@{/resources/style.css}">
 </head>
 <body>
+<div th:replace="logoutHeader :: logout"></div>
 <h1 align="center">Nova bilješka</h1>
 <div align="center">
 <form th:action="@{/potvrdaSpremanja}" th:object="${novaBiljeskaForm}" method="post">
@@ -14,17 +16,19 @@
 <tr>
 <td>Korisnik:</td>
 <td>
-<select th:field="*{korisnikId}">
+<div sec:authorize="hasRole('ROLE_ADMIN')">
+<select th:field="*{korisnik}">
 <option th:each="korisnik : ${korisnici}"
         th:value="${korisnik.korisnikId}"
         th:text="${korisnik.punoIme}">Korisnik</option>
 </select>
+</div>
 </td>
 </tr>
 <tr>
 <td>Bilježnica:</td>
 <td>
-<select th:field="*{nazivBiljeznice}">
+<select th:field="*{biljeznica}">
 <option th:each="biljeznica : ${biljeznice}"
         th:value="${biljeznica.naziv}"
         th:text="${biljeznica.naziv}">Bilježnica</option>
@@ -34,7 +38,7 @@
 <tr>
 <td>Naslov:</td>
 <td>
-<input type="text" th:field="*{naslovBiljeske}"/>
+<input type="text"  th:field="*{naslovBiljeske}"/>
 </td>
 </tr>
 <tr>
