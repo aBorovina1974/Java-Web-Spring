@@ -50,5 +50,4 @@ class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">
 </beans:bean>
 
 <context:component-scan base-package="hr.controllers"/>
-
 </beans:beans>

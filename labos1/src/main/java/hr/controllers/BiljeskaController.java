@@ -2,7 +2,9 @@ package hr.controllers;
 
 import java.security.Principal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -12,22 +14,38 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-
 import hr.biljeznica.*;
 import hr.editors.BiljeznicaEditor;
 import hr.editors.KorisnikEditor;
+import hr.jdbc.repositories.AuthoritiesRepository;
+import hr.jdbc.repositories.BiljeskaRepository;
+import hr.jdbc.repositories.BiljeznicaRepository;
+import hr.jdbc.repositories.KorisnikRepository;
 
 @Controller
 @SessionAttributes({"novaBiljeskaForm", "brojac", "loggedUser"})
 public class BiljeskaController {
+	
+  @Autowired	
+  private BiljeznicaRepository biljeznicaRepository;
+  
+  @Autowired
+  private KorisnikRepository korisnikRepository; 
+  
+  @Autowired
+  private BiljeskaRepository biljeskaRepository;
+  
+  @Autowired
+  private AuthoritiesRepository authoritiesRepository;
 
   @GetMapping(value="/novaBiljeska")
   public String showNovaBiljeskaForm(Model model, Principal principal,
   @ModelAttribute("novaBiljeskaForm") NovaBiljeskaForm novaBiljeskaForm)
   { 
-	  if(novaBiljeskaForm.getKorisnik() == null)
+	  if(novaBiljeskaForm.getKorisnik() == null &&
+		 !authoritiesRepository.hasAdminRole(principal.getName()))
 	  {
-		  for (Korisnik korisnik : EntitetiHelper.getKorisnikList()) 
+		  for (Korisnik korisnik : korisnikRepository.findAll()) 
 		  {
 			  if(korisnik.getKorisnickoIme().equals(principal.getName()))
 			  {
@@ -38,10 +56,9 @@ public class BiljeskaController {
 	      }
 		  
       }
-	  
 	  model.addAttribute("loggedUser", principal.getName());
-	  model.addAttribute("korisnici", EntitetiHelper.getKorisnikList());
-	  model.addAttribute("biljeznice", EntitetiHelper.getBiljeznicaList());
+	  model.addAttribute("korisnici", korisnikRepository.findAll());
+	  model.addAttribute("biljeznice", biljeznicaRepository.findAll());
 	  return "novaBiljeska";
   }
   
@@ -58,13 +75,14 @@ public class BiljeskaController {
   @ModelAttribute("brojac") HashMap<String, Integer> brojac,
   @ModelAttribute("novaBiljeskaForm") NovaBiljeskaForm novaBiljeskaForm)
   {
- 	 Biljeska biljeska = new Biljeska();
- 	 biljeska.setNaslov(novaBiljeskaForm.getNaslovBiljeske());
- 	 biljeska.setText(novaBiljeskaForm.getText());
- 	 biljeska.setKorisnik(novaBiljeskaForm.getKorisnik());
- 	 biljeska.setBiljeznica(novaBiljeskaForm.getBiljeznica());
+ 	 String naslov = novaBiljeskaForm.getNaslovBiljeske();
+ 	 String text = novaBiljeskaForm.getText();
+ 	 Korisnik korisnik = novaBiljeskaForm.getKorisnik();
+ 	 Biljeznica biljeznica = novaBiljeskaForm.getBiljeznica();
  	 
- 	 model.addAttribute("biljeska", biljeska);
+ 	 Biljeska biljeska1 = new Biljeska(null, naslov, text, korisnik, biljeznica);
+ 	 Biljeska biljeska2 = biljeskaRepository.save(biljeska1);
+ 	 model.addAttribute("biljeska", biljeska2);
  	 
  	 for(String nazivBiljeznice : brojac.keySet())
  	 {
@@ -92,6 +110,22 @@ public class BiljeskaController {
 	  return "redirect:/novaBiljeska";
   }
   
+  @GetMapping(value="/pregledBiljeski")
+  public String pregledajBiljeske(Model model, Principal principal)
+  {
+	  List<Biljeska> biljeske = null;
+	  if(authoritiesRepository.hasAdminRole(principal.getName()))
+	  {
+	  biljeske = biljeskaRepository.findAll();
+	  }
+	  else
+	  {
+	  biljeske = biljeskaRepository.findAllByKorisnickoIme(principal.getName());
+	  }
+	  model.addAttribute("biljeske", biljeske);
+	  return "pregledBiljeski";
+  }
+  
   @ModelAttribute("novaBiljeskaForm") 
   public NovaBiljeskaForm getNovaBiljeskaForm()
   {
@@ -102,7 +136,7 @@ public class BiljeskaController {
   public Map<String, Integer> getBrojac()
   {
 	  Map<String, Integer> brojac = new HashMap<>();
-	  for(Biljeznica biljeznica : EntitetiHelper.getBiljeznicaList())
+	  for(Biljeznica biljeznica : biljeznicaRepository.findAll())
 	  {
 		  brojac.put(biljeznica.getNaziv(), 0);
 	  }
@@ -112,7 +146,7 @@ public class BiljeskaController {
   @InitBinder
   public void dataBinding(WebDataBinder binder)
   {
-	  binder.registerCustomEditor(Korisnik.class, new KorisnikEditor());
-	  binder.registerCustomEditor(Biljeznica.class, new BiljeznicaEditor());
+	  binder.registerCustomEditor(Korisnik.class, new KorisnikEditor(korisnikRepository));
+	  binder.registerCustomEditor(Biljeznica.class, new BiljeznicaEditor(biljeznicaRepository));
   }
 }

@@ -2,11 +2,29 @@ package hr.biljeznica;
 
 public class Biljeska {
 
+	private Integer biljeskaId;
 	private String naslov;
 	private String text;
 	private Korisnik korisnik;
 	private Biljeznica biljeznica;
 	
+	
+	
+	public Biljeska(Integer biljeskaId, String naslov, String text, 
+			        Korisnik korisnik, Biljeznica biljeznica) 
+	{
+		this.biljeskaId = biljeskaId;
+		this.naslov = naslov;
+		this.text = text;
+		this.korisnik = korisnik;
+		this.biljeznica = biljeznica;
+	}
+	public Integer getBiljeskaId() {
+		return biljeskaId;
+	}
+	public void setBiljeskaId(Integer biljeskaId) {
+		this.biljeskaId = biljeskaId;
+	}
 	public String getNaslov() {
 		return naslov;
 	}

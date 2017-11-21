@@ -18,15 +18,15 @@ authentication-failure-url="/login?error=true"/>
 <logout logout-success-url="/login?logout=true"/>
 </http>
 
-<user-service id="userService">
-<user name="pperic" password="lozinka1" authorities="ROLE_USER"/>
-<user name="iivic" password="lozinka2" authorities="ROLE_USER"/>
-<user name="mmarkic" password="lozinka3" authorities="ROLE_USER"/>
-<user name="admin" password="administrator" authorities="ROLE_USER,ROLE_ADMIN"/>
-</user-service>
-
 <authentication-manager alias="authenticationManager">
-<authentication-provider user-service-ref="userService" />
+<authentication-provider>
+<!-- <password-encoder hash="bcrypt" /> -->
+<jdbc-user-service data-source-ref="dataSource"
+users-by-username-query=
+"select username,password, enabled from user where username=?"
+authorities-by-username-query=
+"select username, role from user_role where username =?" />
+</authentication-provider>
 </authentication-manager>
 
 </beans:beans>
