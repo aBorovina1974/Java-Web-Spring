@@ -20,7 +20,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <select th:field="*{korisnik}">
 <option th:each="korisnik : ${korisnici}"
         th:value="${korisnik.korisnikId}"
-        th:text="${korisnik.punoIme}">Korisnik</option>
+        th:text="|${korisnik.imeKorisnika} ${korisnik.prezimeKorisnika}|">Korisnik</option>
 </select>
 </div>
 </td>

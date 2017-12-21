@@ -1,4 +1,4 @@
-package hr.jdbc.repositories;
+package hr.hibernate.repositories;
 
 public interface AuthoritiesRepository {
 

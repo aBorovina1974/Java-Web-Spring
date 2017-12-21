@@ -2,7 +2,9 @@ package hr.editors;
 
 import java.beans.PropertyEditorSupport;
 import hr.biljeznica.Korisnik;
-import hr.jdbc.repositories.KorisnikRepository;
+import hr.hibernate.repositories.KorisnikRepository;
+
+
 
 public class KorisnikEditor extends PropertyEditorSupport {
 	

@@ -1,11 +1,11 @@
 INSERT INTO user(ime, prezime,username,password,enabled)
-VALUES ('Ivo','IviÊ','iivic','password', true);
+VALUES ('Ivo','Iviƒá','iivic','password', true);
 INSERT INTO user(ime, prezime,username,password,enabled)
-VALUES ('Marko','MarkiÊ','mmarkic','password', true);
+VALUES ('Marko','Markiƒá','mmarkic','password', true);
 INSERT INTO user(ime, prezime,username,password,enabled)
-VALUES ('Pero','PeriÊ','pperic','password', true);
+VALUES ('Pero','Periƒá','pperic','password', true);
 INSERT INTO user(ime, prezime,username,password,enabled)
-VALUES ('Adminko','AdminiÊ','admin','password', true);
+VALUES ('Adminko','Adminiƒá','admin','password', true);
 INSERT INTO user_role (username, role)
 VALUES ('iivic', 'ROLE_USER');
 INSERT INTO user_role (username, role)
@@ -17,13 +17,13 @@ VALUES ('admin', 'ROLE_USER');
 INSERT INTO user_role (username, role)
 VALUES ('admin', 'ROLE_ADMIN');
 INSERT INTO biljeznica(naziv, opis)
-VALUES('Web aplikacije u Javi', 'Biljeöke s predavanja iz kolegija web aplikacije u
+VALUES('Web aplikacije u Javi', 'Bilje≈°ke s predavanja iz kolegija web aplikacije u
 Javi');
 INSERT INTO biljeznica(naziv, opis)
-VALUES('Razvoj aplikacija na Android platformi', 'Biljeöke s predavanja kolegija razvoj
+VALUES('Razvoj aplikacija na Android platformi', 'Bilje≈°ke s predavanja kolegija razvoj
 aplikacija na Android platformi');
 INSERT INTO biljeznica(naziv, opis)
-VALUES('Napredne teme raËunalnih mreûa', 'Biljeöke s predavanja napredne teme
-raËunalnih mreûa');
+VALUES('Napredne teme raƒçunalnih mre≈æa', 'Bilje≈°ke s predavanja napredne teme
+raƒçunalnih mre≈æa');
 INSERT INTO biljeska(naslov, tekst, korisnik, biljeznica)
 VALUES('Testni naslov', 'Testni tekst', 'iivic', 'Web aplikacije u Javi');

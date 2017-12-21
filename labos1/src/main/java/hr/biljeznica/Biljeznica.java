@@ -1,9 +1,30 @@
 package hr.biljeznica;
 
-public class Biljeznica {
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="biljeznica")
+public class Biljeznica implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
+	@Id @GeneratedValue
+	@Column(name="naziv")
 	private String naziv;
+	
+	@Column(name="opis")
 	private String opisSadrzaja;
+	
+	public Biljeznica()
+	{
+		
+	}
 	
 	public Biljeznica(String naziv, String opisSadrzaja)
 	{

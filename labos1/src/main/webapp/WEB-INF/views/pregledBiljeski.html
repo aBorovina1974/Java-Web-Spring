@@ -21,7 +21,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <tr th:each="biljeska : ${biljeske}">
 <td th:text="${biljeska.naslov}">Neki naslov</td>
 <td th:text="${biljeska.text}">Neki tekst</td>
-<td th:text="${biljeska.korisnik.punoIme}">Neki korisnik</td>
+<td th:text="${biljeska.korisnik.imeKorisnika}">Neki korisnik</td>
 <td th:text="${biljeska.biljeznica.naziv}">Neka Biljeznica</td>
 </tr>
 </table>

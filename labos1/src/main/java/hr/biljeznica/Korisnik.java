@@ -1,20 +1,43 @@
 package hr.biljeznica;
 
-public class Korisnik {
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="user")
+public class Korisnik implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
+	@Id 
+	@GeneratedValue
+	@Column(name="id")
 	private Integer korisnikId;
+	
+	@Column(name="username")
 	private String korisnickoIme;
+	
+	@Column(name="ime")
 	private String imeKorisnika;
+	
+	@Column(name="prezime")
 	private String prezimeKorisnika;
-	private String punoIme;
+	
+	public Korisnik()
+	{
+		
+	}
 
 	public Korisnik(Integer korisnikId, String korisnickoIme, String imeKorisnika, String prezimeKorisnika) {
-		super();
 		this.korisnikId = korisnikId;
 		this.korisnickoIme = korisnickoIme;
 		this.imeKorisnika = imeKorisnika;
 		this.prezimeKorisnika = prezimeKorisnika;
-		this.punoIme = imeKorisnika + " " + prezimeKorisnika;
 	}
 
 	public Integer getKorisnikId() {
@@ -49,11 +72,4 @@ public class Korisnik {
 		this.prezimeKorisnika = prezimeKorisnika;
 	}
 	
-	public String getPunoIme() {
-		return punoIme;
-	}
-
-	public void setPunoIme(String punoIme) {
-		this.punoIme = punoIme;
-	}
 }

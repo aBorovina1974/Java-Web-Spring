@@ -1,4 +1,4 @@
-package hr.jdbc.repositories;
+package hr.hibernate.repositories;
 
 import java.util.List;
 
@@ -11,6 +11,5 @@ public interface BiljeskaRepository {
 	List<Biljeska> findAllByKorisnickoIme(String korisnickoIme);
 	List<Biljeska> findAll();
 	Biljeska save(Biljeska biljeska);
-	void delete(Integer id);
-	
+	void delete(Biljeska biljeska);
 }

@@ -17,10 +17,12 @@ import org.springframework.web.bind.support.SessionStatus;
 import hr.biljeznica.*;
 import hr.editors.BiljeznicaEditor;
 import hr.editors.KorisnikEditor;
-import hr.jdbc.repositories.AuthoritiesRepository;
-import hr.jdbc.repositories.BiljeskaRepository;
-import hr.jdbc.repositories.BiljeznicaRepository;
-import hr.jdbc.repositories.KorisnikRepository;
+import hr.hibernate.repositories.BiljeznicaRepository;
+import hr.hibernate.repositories.KorisnikRepository;
+import hr.hibernate.repositories.AuthoritiesRepository;
+import hr.hibernate.repositories.BiljeskaRepository;
+
+
 
 @Controller
 @SessionAttributes({"novaBiljeskaForm", "brojac", "loggedUser"})
@@ -41,9 +43,9 @@ public class BiljeskaController {
   @GetMapping(value="/novaBiljeska")
   public String showNovaBiljeskaForm(Model model, Principal principal,
   @ModelAttribute("novaBiljeskaForm") NovaBiljeskaForm novaBiljeskaForm)
-  { 
-	  if(novaBiljeskaForm.getKorisnik() == null &&
-		 !authoritiesRepository.hasAdminRole(principal.getName()))
+  {   
+	  if(novaBiljeskaForm.getKorisnik() == null && 
+	     !authoritiesRepository.hasAdminRole(principal.getName()))
 	  {
 		  for (Korisnik korisnik : korisnikRepository.findAll()) 
 		  {
@@ -80,7 +82,8 @@ public class BiljeskaController {
  	 Korisnik korisnik = novaBiljeskaForm.getKorisnik();
  	 Biljeznica biljeznica = novaBiljeskaForm.getBiljeznica();
  	 
- 	 Biljeska biljeska1 = new Biljeska(null, naslov, text, korisnik, biljeznica);
+ 	 Biljeska biljeska1 = new Biljeska(naslov, text, korisnik, biljeznica);
+ 	 biljeska1.setBiljeznica(biljeznica);
  	 Biljeska biljeska2 = biljeskaRepository.save(biljeska1);
  	 model.addAttribute("biljeska", biljeska2);
  	 

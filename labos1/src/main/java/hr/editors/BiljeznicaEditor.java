@@ -2,7 +2,8 @@ package hr.editors;
 
 import java.beans.PropertyEditorSupport;
 import hr.biljeznica.Biljeznica;
-import hr.jdbc.repositories.BiljeznicaRepository;
+import hr.hibernate.repositories.BiljeznicaRepository;
+
 
 public class BiljeznicaEditor extends PropertyEditorSupport {
 	
