@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -15,7 +16,7 @@ public class Korisnik implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id 
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
 	private Integer korisnikId;
 	
@@ -30,14 +31,7 @@ public class Korisnik implements Serializable {
 	
 	public Korisnik()
 	{
-		
-	}
-
-	public Korisnik(Integer korisnikId, String korisnickoIme, String imeKorisnika, String prezimeKorisnika) {
-		this.korisnikId = korisnikId;
-		this.korisnickoIme = korisnickoIme;
-		this.imeKorisnika = imeKorisnika;
-		this.prezimeKorisnika = prezimeKorisnika;
+	
 	}
 
 	public Integer getKorisnikId() {

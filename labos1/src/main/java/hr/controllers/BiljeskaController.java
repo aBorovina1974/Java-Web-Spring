@@ -83,7 +83,6 @@ public class BiljeskaController {
  	 Biljeznica biljeznica = novaBiljeskaForm.getBiljeznica();
  	 
  	 Biljeska biljeska1 = new Biljeska(naslov, text, korisnik, biljeznica);
- 	 biljeska1.setBiljeznica(biljeznica);
  	 Biljeska biljeska2 = biljeskaRepository.save(biljeska1);
  	 model.addAttribute("biljeska", biljeska2);
  	 

@@ -43,7 +43,8 @@ public class HibernateBiljeskaRepository implements BiljeskaRepository {
 	@Override
 	public List<Biljeska> findAllByKorisnickoIme(String korisnickoIme) {
 	
-		Query query = currentSession().createQuery("FROM Biljeska b WHERE b.korisnik.korisnickoIme = ?");
+		Query query = currentSession().createQuery(
+		"FROM Biljeska b WHERE b.korisnik.korisnickoIme = ?");
 		query.setParameter(0, korisnickoIme);
 		return (List<Biljeska>)query.list();
 	}
@@ -51,7 +52,7 @@ public class HibernateBiljeskaRepository implements BiljeskaRepository {
 	@Override
 	public List<Biljeska> findAll() {
 		
-		return currentSession().createQuery("SELECT FROM Biljeska ", 
+		return currentSession().createQuery("FROM Biljeska", 
 		Biljeska.class).getResultList();
 	}
 

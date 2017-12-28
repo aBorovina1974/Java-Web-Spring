@@ -5,9 +5,10 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -17,7 +18,7 @@ public class Biljeska implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id 
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
 	private Integer biljeskaId;
 	
@@ -27,12 +28,12 @@ public class Biljeska implements Serializable {
 	@Column(name="tekst")
 	private String text;
 	 
-	@OneToOne
-	@JoinColumn(name="biljeznica")
+	@ManyToOne
+	@JoinColumn(name="biljeznica", referencedColumnName="naziv")
 	private Biljeznica biljeznica;
 	
-	@OneToOne
-	@JoinColumn(name="korisnik")
+	@ManyToOne
+	@JoinColumn(name="korisnik", referencedColumnName="username")
 	private Korisnik korisnik;
 	
 

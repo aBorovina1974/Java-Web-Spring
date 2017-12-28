@@ -36,7 +36,6 @@ public class HibernateKorisnikRepository implements KorisnikRepository {
 	public List<Korisnik> findAll() {
 		return currentSession().createQuery("FROM Korisnik", 
 		Korisnik.class).getResultList();
-		
 	}
 
 }
