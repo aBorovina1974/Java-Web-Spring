@@ -4,6 +4,9 @@ import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,13 +17,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+
+import hr.SpringDataJPA.repositories.AuthoritiesRepository;
+import hr.SpringDataJPA.repositories.BiljeskaRepository;
+import hr.SpringDataJPA.repositories.BiljeznicaRepository;
+import hr.SpringDataJPA.repositories.KorisnikRepository;
 import hr.biljeznica.*;
 import hr.editors.BiljeznicaEditor;
 import hr.editors.KorisnikEditor;
-import hr.hibernate.repositories.BiljeznicaRepository;
-import hr.hibernate.repositories.KorisnikRepository;
-import hr.hibernate.repositories.AuthoritiesRepository;
-import hr.hibernate.repositories.BiljeskaRepository;
+
 
 
 
@@ -122,7 +127,41 @@ public class BiljeskaController {
 	  }
 	  else
 	  {
-	  biljeske = biljeskaRepository.findAllByKorisnickoIme(principal.getName());
+	  biljeske = biljeskaRepository.findByKorisnik_KorisnickoIme(principal.getName());
+	  }
+	  model.addAttribute("biljeske", biljeske);
+	  return "pregledBiljeski";
+  }
+  
+  @GetMapping(value="/sortirajBiljeskeUzlazno")
+  public String sortirajUzlazno(Model model, Principal principal, HttpServletRequest request)
+  {
+	  
+	  List<Biljeska> biljeske = null;
+	  if(authoritiesRepository.hasAdminRole(principal.getName()))
+	  {
+	  biljeske = biljeskaRepository.findAllByOrderByNaslovAsc();
+	  }
+	  else
+	  {
+	  biljeske = biljeskaRepository.findByKorisnik_KorisnickoImeOrderByNaslovAsc(principal.getName());
+	  }
+	  model.addAttribute("biljeske", biljeske);
+	  return "pregledBiljeski";
+  }
+  
+  @GetMapping(value="/sortirajBiljeskeSilazno")
+  public String sortirajSilazno(Model model, Principal principal)
+  {
+	  List<Biljeska> biljeske = null;
+	  if(authoritiesRepository.hasAdminRole(principal.getName()))
+	  {
+	  biljeske = biljeskaRepository.findAllByOrderByNaslovDesc();
+	  }
+	  else
+	  {
+	  biljeske = biljeskaRepository
+	  .findByKorisnik_KorisnickoImeOrderByNaslovDesc(principal.getName());
 	  }
 	  model.addAttribute("biljeske", biljeske);
 	  return "pregledBiljeski";

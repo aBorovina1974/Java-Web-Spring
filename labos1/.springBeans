@@ -9,10 +9,10 @@
 	<configs>
 	</configs>
 	<autoconfigs>
+		<config>src/main/webapp/WEB-INF/spring/data-jpa-config.xml</config>
 		<config>src/main/webapp/WEB-INF/spring/security-config.xml</config>
 		<config>src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml</config>
 		<config>src/main/webapp/WEB-INF/spring/root-context.xml</config>
-		<config>src/main/webapp/WEB-INF/spring/hibernate-config.xml</config>
 	</autoconfigs>
 	<configSets>
 	</configSets>

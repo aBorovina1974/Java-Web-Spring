@@ -1,8 +1,9 @@
 package hr.editors;
 
 import java.beans.PropertyEditorSupport;
+
+import hr.SpringDataJPA.repositories.KorisnikRepository;
 import hr.biljeznica.Korisnik;
-import hr.hibernate.repositories.KorisnikRepository;
 
 
 
