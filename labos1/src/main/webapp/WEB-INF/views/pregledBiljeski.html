@@ -27,15 +27,21 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 </table>
 </div>
 <div align="center">
+<table>
+<tr>
+<td>
 <a th:href="@{/napraviNovuBiljesku}">
 <button class="btn btn-primary btn-sm">Napravi novu bilješku</button>
 </a>
-<a th:href="@{/sortirajBiljeskeUzlazno}">
-<button class="btn btn-outline-info btn-sm" name="uzlazno">Sortiraj uzlazno</button>
-</a>
-<a th:href="@{/sortirajBiljeskeSilazno}">
-<button class="btn btn-outline-info btn-sm" name="silazno">Sortiraj silazno</button>
-</a>
+</td>
+<td>
+<form th:action="@{/sortiranjeBiljeski}" method="get">
+<input type="submit" name="uzlazno" value="Sortiraj uzlazno" class="btn btn-outline-info btn-sm"/>
+<input type="submit" name="silazno" value="Sortiraj silazno" class="btn btn-outline-info btn-sm"/>
+</form>
+</td>
+</tr>
+</table>
 </div>
 </body>
 </html>

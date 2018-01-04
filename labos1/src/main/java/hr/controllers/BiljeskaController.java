@@ -133,39 +133,42 @@ public class BiljeskaController {
 	  return "pregledBiljeski";
   }
   
-  @GetMapping(value="/sortirajBiljeskeUzlazno")
-  public String sortirajUzlazno(Model model, Principal principal, HttpServletRequest request)
-  {
-	  
-	  List<Biljeska> biljeske = null;
-	  if(authoritiesRepository.hasAdminRole(principal.getName()))
-	  {
-	  biljeske = biljeskaRepository.findAllByOrderByNaslovAsc();
-	  }
-	  else
-	  {
-	  biljeske = biljeskaRepository.findByKorisnik_KorisnickoImeOrderByNaslovAsc(principal.getName());
-	  }
-	  model.addAttribute("biljeske", biljeske);
-	  return "pregledBiljeski";
-  }
+    @GetMapping(value="/sortiranjeBiljeski")
+    public String sortirajBiljeske(Model model, Principal principal, HttpServletRequest request)
+    {
+    	String value1 = request.getParameter("uzlazno");
+    	String value2 = request.getParameter("silazno");
+    	
+    	List<Biljeska> biljeske = null;
+  	  if(authoritiesRepository.hasAdminRole(principal.getName()))
+  	  {
+	  	  if(value1 != null)
+	  	  {
+	  		 biljeske = biljeskaRepository.findAllByOrderByNaslovAsc(); 
+	  	  }
+	  	  else if(value2 != null)
+	  	  {
+	  		 biljeske = biljeskaRepository.findAllByOrderByNaslovDesc();
+	  	  }
+  	  }
+  	  else
+  	  {
+	  	  if(value1 != null)
+	  	  {
+	  		  biljeske = biljeskaRepository
+	  		  .findByKorisnik_KorisnickoImeOrderByNaslovAsc(principal.getName());
+	  	  }
+	  	  else if(value2 != null)
+	  	  {
+	  		  biljeske = biljeskaRepository
+	  		  .findByKorisnik_KorisnickoImeOrderByNaslovDesc(principal.getName());
+	  	  }
+  	  }
+	  	  model.addAttribute("biljeske", biljeske);
+	  	  return "pregledBiljeski";
+    }
   
-  @GetMapping(value="/sortirajBiljeskeSilazno")
-  public String sortirajSilazno(Model model, Principal principal)
-  {
-	  List<Biljeska> biljeske = null;
-	  if(authoritiesRepository.hasAdminRole(principal.getName()))
-	  {
-	  biljeske = biljeskaRepository.findAllByOrderByNaslovDesc();
-	  }
-	  else
-	  {
-	  biljeske = biljeskaRepository
-	  .findByKorisnik_KorisnickoImeOrderByNaslovDesc(principal.getName());
-	  }
-	  model.addAttribute("biljeske", biljeske);
-	  return "pregledBiljeski";
-  }
+
   
   @ModelAttribute("novaBiljeskaForm") 
   public NovaBiljeskaForm getNovaBiljeskaForm()
