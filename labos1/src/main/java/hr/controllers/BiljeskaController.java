@@ -136,29 +136,27 @@ public class BiljeskaController {
     @GetMapping(value="/sortiranjeBiljeski")
     public String sortirajBiljeske(Model model, Principal principal, HttpServletRequest request)
     {
-    	String value1 = request.getParameter("uzlazno");
-    	String value2 = request.getParameter("silazno");
-    	
+    	String sort = request.getParameter("sort");
     	List<Biljeska> biljeske = null;
   	  if(authoritiesRepository.hasAdminRole(principal.getName()))
   	  {
-	  	  if(value1 != null)
+	  	  if(sort.equals("asc"))
 	  	  {
 	  		 biljeske = biljeskaRepository.findAllByOrderByNaslovAsc(); 
 	  	  }
-	  	  else if(value2 != null)
+	  	  else if(sort.equals("desc"))
 	  	  {
 	  		 biljeske = biljeskaRepository.findAllByOrderByNaslovDesc();
 	  	  }
   	  }
   	  else
   	  {
-	  	  if(value1 != null)
+	  	  if(sort.equals("asc"))
 	  	  {
 	  		  biljeske = biljeskaRepository
 	  		  .findByKorisnik_KorisnickoImeOrderByNaslovAsc(principal.getName());
 	  	  }
-	  	  else if(value2 != null)
+	  	  else if(sort.equals("desc"))
 	  	  {
 	  		  biljeske = biljeskaRepository
 	  		  .findByKorisnik_KorisnickoImeOrderByNaslovDesc(principal.getName());

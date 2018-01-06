@@ -36,8 +36,10 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 </td>
 <td>
 <form th:action="@{/sortiranjeBiljeski}" method="get">
-<input type="submit" name="uzlazno" value="Sortiraj uzlazno" class="btn btn-outline-info btn-sm"/>
-<input type="submit" name="silazno" value="Sortiraj silazno" class="btn btn-outline-info btn-sm"/>
+<button type="submit" name="sort" value="asc" class="btn btn-outline-info btn-sm">
+Sortiraj uzlazno</button>
+<button type="submit" name="sort" value="desc" class="btn btn-outline-info btn-sm">
+Sortiraj silazno</button>
 </form>
 </td>
 </tr>
