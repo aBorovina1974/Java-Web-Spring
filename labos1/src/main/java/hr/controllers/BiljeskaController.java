@@ -115,6 +115,7 @@ public class BiljeskaController {
   {
 	  status.setComplete();
 	  return "redirect:/novaBiljeska";
+	  
   }
   
   @GetMapping(value="/pregledBiljeski")

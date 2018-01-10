@@ -16,6 +16,7 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 always-use-default-target="true"
 authentication-failure-url="/login?error=true"/>
 <logout logout-success-url="/login?logout=true"/>
+<csrf disabled="true" />
 </http>
 
 
